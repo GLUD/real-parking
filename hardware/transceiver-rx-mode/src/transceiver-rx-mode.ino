@@ -1,34 +1,50 @@
 /*  ----------------------------------------------------------------
-    http://www.prometec.net/nrf2401
-    Prog_79_1_Receptor
+    http://www.prometec.net/duplex-nrf2401
+    Prog_79B_Emisor
 
-    Programa para recibir numeros mediante radios NRF2401
+    Usando un NRF2401 para comunicar dos Arduinos en modo Duplex
+    Programa Receptor:
 --------------------------------------------------------------------
 */
-
-#include <nRF24L01.h>
-#include <RF24.h>
-#include <RF24_config.h>
 #include <SPI.h>
-
-int msg[1];
+#include "nRF24L01.h"
+#include "RF24.h"
 
 RF24 radio(9,10);
-const uint64_t pipe = 0xE8E8F0F0E1LL;
+const uint64_t pipes[2] = { 0xF0F0F0F0E1LL, 0xF0F0F0F0D2LL };
 
-void setup(void){
-  Serial.begin(9600);
-  radio.begin();
-  radio.openReadingPipe(1,pipe);
-  radio.startListening();
+void setup(void)
+{
+    pinMode(10, OUTPUT);
+    Serial.begin(9600);
+
+    radio.begin();
+    radio.setRetries(15,15);
+    //radio.setPayloadSize(8);
+    radio.startListening();
+    radio.openWritingPipe(pipes[1]);
+    radio.openReadingPipe(1,pipes[0]);
 }
 
-void loop(void){
-  if (radio.available())
-  {
-    // bool done = false;
-    int done = radio.read(msg, 1);
-    // lastmsg = msg[0];
-    Serial.println(msg[0]);
-  }
+void loop(void)
+{
+    if ( radio.available() )  // Si hay datos disponibles
+    {
+        unsigned long got_time;
+        bool done = false;
+        while (!done)        // Espera aqui hasta recibir algo
+           {
+
+              done = radio.read( &got_time, sizeof(unsigned long) );
+              Serial.print("Dato Recibido =");
+              Serial.println(got_time);
+              delay(20);	// Para dar tiempo al emisor
+           }
+
+      radio.stopListening();	// Dejamos d escuchar para poder hablar
+
+      radio.write( &got_time, sizeof(unsigned long) );
+      Serial.println("Enviando Respuesta");
+      radio.startListening();    // Volvemos a la escucha para recibir mas paquetes
+    }
 }
