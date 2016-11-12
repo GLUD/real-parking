@@ -1,0 +1,17 @@
+{
+  "name": "real-parking",
+  "version": "1.0.0",
+  "description": "Real Parking API for parking managers",
+  "main": "index.js",
+  "repository": {
+    "url": "https://github.com/GLUD/real-parking.git",
+    "type": "git"
+  },
+  "author": "David Castelblanco B. <david.castelblanco@hotmail.com>",
+  "license": "GPL",
+  "dependencies": {
+    "express": "^4.14.0",
+    "rethinkdb": "^2.3.3",
+    "socket.io": "^1.5.1"
+  }
+}
