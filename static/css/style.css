@@ -136,3 +136,48 @@ html, body, #map {
 .ol-popup-closer:hover {
   color: rgb(255, 56, 168);
 }
+
+/** */
+.coleccion-cobros {
+  background: white;
+}
+
+.coleccion-item {
+  padding: 10px 20px;
+}
+
+.coleccion-item .titulo{
+  font-weight: bold;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info  {
+  margin-top: 10px;
+}
+
+.info span {
+  display: block;
+  margin-top: 5px;
+}
+
+.info .ingreso::before {
+  content: "Hora ingreso: ";
+}
+.info .salida::before {
+  content: "Hora salida: ";
+}
+.info .monto::before {
+  content: "Monto: $";
+}
+
+.close {
+  padding: 10px 20px;
+}
