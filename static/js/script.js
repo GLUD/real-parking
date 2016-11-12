@@ -24,14 +24,32 @@ var islaSource = new ol.source.Vector({
   }))
 })
 
-var islaLayer = new ol.layer.Vector({
-  source: islaSource,
-  style: new ol.style.Style({
+var style = new ol.style.Style({
+  fill: new ol.style.Fill({
+    color: 'rgba(255, 255, 255, 0.6)'
+  }),
+  stroke: new ol.style.Stroke({
+    color: '#319FD3',
+    width: 1
+  }),
+  text: new ol.style.Text({
+    font: '12px Calibri,sans-serif',
+    fill: new ol.style.Fill({
+      color: '#000'
+    }),
     stroke: new ol.style.Stroke({
-      color: 'rgba(0, 0, 255, 1.0)',
-      width: 2
+      color: '#fff',
+      width: 3
     })
   })
+});
+
+var islaLayer = new ol.layer.Vector({
+  source: islaSource,
+  style: function(feature, resolution) {
+    style.getText().setText(resolution < 5000 ? feature.get('name') : '');
+    return style;
+  }
 })
 
 var osmLayer = new ol.layer.Tile({
@@ -43,7 +61,8 @@ var map = new ol.Map({
   layers: [osmLayer, islaLayer],
   target: document.getElementById('map'),
   view: new ol.View({
-    center: [-8244952.014276695, 515728.84084898204],
+    //map.on('click',function(e){console.log(e)}) //asi lo obtuve
+    center: [-8244961.270323087, 515926.5022268131],
     maxZoom: 26,
     zoom: 18
   })
@@ -77,5 +96,96 @@ function changeVisibilityLayer(opt, estado) {
       break;
     default:
 
+  }
+}
+
+var highlightStyleCache = {};
+var featureOverlay = new ol.layer.Vector({
+  source: new ol.source.Vector(),
+  map: map,
+  style: function(feature, resolution) {
+    var text = resolution < 5000 ? feature.get('name') : '';
+    if (!highlightStyleCache[text]) {
+      highlightStyleCache[text] = new ol.style.Style({
+        stroke: new ol.style.Stroke({
+          color: '#f00',
+          width: 1
+        }),
+        fill: new ol.style.Fill({
+          color: 'rgba(255,0,0,0.1)'
+        }),
+        text: new ol.style.Text({
+          font: '12px Calibri,sans-serif',
+          text: text,
+          fill: new ol.style.Fill({
+            color: '#000'
+          }),
+          stroke: new ol.style.Stroke({
+            color: '#f00',
+            width: 3
+          })
+        })
+      });
+    }
+    return highlightStyleCache[text];
+  }
+});
+
+// var highlight;
+// var displayFeatureInfo = function(pixel) {
+//
+//   var feature = map.forEachFeatureAtPixel(pixel, function(feature) {
+//     return feature;
+//   });
+//
+//   var info = document.getElementById('info');
+//   if (feature) {
+//     //console.log(feature)
+//     info.innerHTML = feature.getId() + ': ' + feature.get('name');
+//   } else {
+//     info.innerHTML = '&nbsp;';
+//   }
+//
+//   if (feature !== highlight) {
+//     if (highlight) {
+//       featureOverlay.getSource().removeFeature(highlight);
+//     }
+//     if (feature) {
+//       featureOverlay.getSource().addFeature(feature);
+//     }
+//     highlight = feature;
+//   }
+//
+// };
+//
+// map.on('pointermove', function(evt) {
+//   if (evt.dragging) {
+//     return;
+//   }
+//   var pixel = map.getEventPixel(evt.originalEvent);
+//   //console.log(pixel)
+//   //displayFeatureInfo(pixel);
+// });
+
+var highlight;
+function displayFeatureById(id){//'isla.1'
+  var feature = islaSource.getFeatureById(id)
+
+  var info = document.getElementById('info');
+  if (feature) {
+    //console.log(feature)
+    info.innerHTML = feature.getId() + ': ' + feature.get('name');
+  } else {
+    info.innerHTML = '&nbsp;';
+  }
+
+  if (feature !== highlight) {
+    if (highlight) {
+      featureOverlay.getSource().removeFeature(highlight);
+    }
+    if (feature) {
+      featureOverlay.getSource().addFeature(feature);
+    }
+    highlight = feature;
   }
 }
