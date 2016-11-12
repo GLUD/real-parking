@@ -12,7 +12,7 @@
 
 RF24 radio(9,10);
 
-const uint64_t pipes[2] = { 0xF0F0F0F0E1LL, 0xF0F0F0F0D2LL };
+const uint64_t pipes[2] = { 0xF0F0F0F0E1LL, 0xF0F0F0F0D2LL }; //LongLong = 64 bits.
 
 void setup(void)
 {
