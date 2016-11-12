@@ -7,10 +7,22 @@ const routes = require('./app/routes')
 
 const app = express()
 
-app.use(express.static('public'))
+var httpProxy = require('http-proxy')
+var apiProxy = httpProxy.createProxyServer()
+
+var geoServer = 'http://localhost:8080'
+app.all("/geoserver/*", function(req, res) {
+  apiProxy.web(req, res, {target: geoServer})
+})
+
+app.use(express.static('static'))
+
+app.get('/', function(req, res) {
+  res.sendFile('static/index.js')
+})
 
 for (let route of routes)
-  app[route.method](route.path, route.callback);
+  app[route.method](route.path, route.callback)
 
 const httpServer = http.createServer(app)
 httpServer.listen(8085, () => {
