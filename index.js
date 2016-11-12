@@ -3,15 +3,14 @@
 const express = require('express')
 const http = require('http')
 const SocketServer = require('./app/SocketServer.js')
+const routes = require('./app/routes')
 
 const app = express()
 
 app.use(express.static('public'))
 
-//Move Router
-app.get('/', (req, res) => {
-  res.send('Hello')
-})
+for (let route of routes)
+  app[route.method](route.path, route.callback);
 
 const httpServer = http.createServer(app)
 httpServer.listen(8085, () => {
