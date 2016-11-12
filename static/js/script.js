@@ -189,3 +189,49 @@ function displayFeatureById(id){//'isla.1'
     highlight = feature;
   }
 }
+
+let createOverlay = function() {
+  return new ol.layer.Vector({
+    source: new ol.source.Vector(),
+    map: map,
+    style: highlightStyle
+  });
+}
+
+let highlightStyle = new ol.style.Style({
+  stroke: new ol.style.Stroke({
+    color: '#f00',
+    width: 1
+  }),
+  fill: new ol.style.Fill({
+    color: 'rgba(255,0,0,0.1)'
+  })
+})
+
+const socket = io()
+const islas = {}
+
+socket.on('parking-change', function (data) {
+  if(islas[data.id] && islas[data.id].marked) {//Already has been marked
+
+    islas[data.id].overlay.getSource().removeFeature(islas[data.id].feature)
+    islas[data.id].marked = false;
+
+  } else if(islas[data.id] && !islas[data.id].marked) {
+
+    islas[data.id].overlay.getSource().addFeature(islas[data.id].feature)
+    islas[data.id].marked = true;
+
+  } else {
+    islas[data.id] = {
+      overlay: createOverlay(),
+      feature: islaSource.getFeatureById(data.id),
+      marked: true
+    }
+
+    if(islas[data.id].feature)
+      islas[data.id].overlay.getSource().addFeature(islas[data.id].feature)
+    else
+      islas[data.id] = undefined // Erase it for safety
+  }
+})
