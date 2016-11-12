@@ -10,6 +10,9 @@ module.exports = function createSocketServer(server) {
   ioServer.on('connection', (client) => {
     console.log(`${client.id} has connected`)
 
+    eventEmitter.on('parking-change', (parkingSlot) => {
+      client.emit('parking-change', { id: parkingSlot })
+    })
 
   })
 }

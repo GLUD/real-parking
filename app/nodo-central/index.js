@@ -6,8 +6,7 @@ module.exports = {
     path: '/toggle',
     method: 'get',
     callback: function(req, res) {
-      //TODO Extract the data from the request
-      eventEmitter.emit('toggle-park')
+      eventEmitter.emit('parking-change', req.query.id)
       //TODO Save event in the data base
       res.end()
     }
