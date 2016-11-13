@@ -1,13 +1,19 @@
 'use strict'
 
+const db = require('../../db/singleton')
+
 module.exports = {
   consultar: {
     path: '/registro/:id',
     method: 'get',
     callback: function(req, res) {
-      res.send({
-        'id_db': req.params.id,
-        'horaIngreso': Date.now()
+      // 'id_db': req.params.id,
+      db.getRegistry(req.params.id)
+      .then(data => {
+        res.send(data)
+      })
+      .catch(err => {
+        res.send(err)
       })
     }
   },
@@ -15,10 +21,12 @@ module.exports = {
     path: '/registro/actualizar/',
     method: 'post',
     callback: function(req, res) {
-      // console.log(req.body)
-      res.send({
-        id: req.body.id,
-        horaSalida: req.body.horaSalida
+      db.updateRegistry(req.body.id)
+      .then(data => {
+        res.send(data)
+      })
+      .catch(err => {
+        res.send(err)
       })
     }
   }

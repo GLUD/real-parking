@@ -20,6 +20,24 @@ class DB {
     return this.connection
   }
 
+  getRegistry(id) {
+    if(!this.connected)
+      return Promise.reject('Conectese')
+
+    let connection = this.connection
+
+    let task = co(function* (){
+
+      let conn = yield connection
+      let result = yield r.db(config.db).table('registry').get(id).run(conn)
+
+
+      return Promise.resolve(result)
+    })
+
+    return task
+  }
+
   insertRegistry(registry) {
 
     if(!this.connected)
@@ -30,10 +48,11 @@ class DB {
     let task = co(function* (){
 
       let conn = yield connection
-      let result = yield r.db(config.db).table('registry').insert({
+      let timeBegin =  moment().format('HH:mm:ss')
 
+      let result = yield r.db(config.db).table('registry').insert({
         isle: registry.id,
-        timeBegin: moment().format('HH:mm:ss'),
+        timeBegin: timeBegin,
         timeEnd: null,
         date: moment().format('DD-MM-YYYY')
 
@@ -60,7 +79,7 @@ class DB {
       let conn = yield connection
       let result = yield r.db(config.db).table('registry').get(id).update({
         timeEnd: timeEnd
-      }, {returnChanges: true}).run(conn)
+      }, { returnChanges: true, nonAtomic: true }).run(conn)
 
       if(result.replaced)
         return Promise.resolve(result.changes[0].new_val)
