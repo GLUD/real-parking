@@ -24,7 +24,7 @@ http://www.prometec.net/nrf2401/
 byte mac[] = {0xDE, 0xBD, 0xBE, 0xEF, 0xFE, 0xED};
 // if you don't want to use DNS (and reduce your sketch size)
 // use the numeric IP instead of the name for the server:
-IPAddress server(10, 154, 101, 74); // numeric IP for Google (no DNS)
+IPAddress server(10,145,20,62); // numeric IP for Google (no DNS)
 // char server[] = "192.168.1.238";    // name address for Google (using DNS)
 // IP Servicio Web Destino de Datos
 
@@ -40,14 +40,14 @@ EthernetClient client;
 /**
  * Variables Módulo RF
  */
-RF24 radio(9, 10);
+RF24 radio(9, 53);
 const uint64_t pipes[2] = {0xF0F0F0F0E1LL, 0xF0F0F0F0D2LL};
 /*Fin*/
 
 void setup() {
   configSerial();
   configEthernet();
-  sendDataEthernet();
+  //sendDataEthernet();
   configRF();
 }
 
@@ -74,7 +74,7 @@ void configEthernet() {
 }
 
 void configRF() {
-  pinMode(10, OUTPUT);
+  pinMode(53, OUTPUT);
   radio.begin();
   radio.setRetries(15, 15);
   // radio.setPayloadSize(8);
@@ -83,24 +83,28 @@ void configRF() {
   radio.openReadingPipe(1, pipes[0]);
 }
 
-void sendDataEthernet() {
+void sendDataEthernet(int valor) {
   // if you get a connection, report back via serial:
-  if (client.connect(server, 9000)) {
+  if (client.connect(server, 8085)) {
     Serial.println("Connected");
     // Make a HTTP request:
     client.println("GET "
-                   "/soberania-code/add_sensor.php/"
-                   "?temp=100&humr=80&hums=20&radi=21 HTTP/1.1");
-    client.println("Host: 10.154.101.74");
+                   "/parking-change"
+                   "?id=" + String(valor) + "&st=0 HTTP/1.1");
+    client.println("Host: 10.145.20.62");
     client.println("Connection: close");
     client.println();
   } else {
     // kf you didn't get a connection to the server:
     Serial.println("Connection failed");
   }
+  interactEthernet();
 }
 
-void loop() { interactEthernet(); }
+void loop() {
+  //interactEthernet();
+  interactRF();
+}
 
 void interactEthernet() {
   // if there are incoming bytes available
@@ -115,8 +119,7 @@ void interactEthernet() {
     Serial.println();
     Serial.println("Disconnecting...");
     client.stop();
-    sendDataEthernet();
-    delay(5000);
+    //sendDataEthernet();
     // do nothing forevermore:
     // while(true);
   }
@@ -124,21 +127,23 @@ void interactEthernet() {
 
 void interactRF() {
   if (radio.available()) { // Si hay datos disponibles
-    unsigned long got_time;
+    char got_isla[2];
     bool done = false;
     while (!done) {
       // Espera aqui hasta recibir algo
 
-      done = radio.read(&got_time, sizeof(unsigned long));
+      done = radio.read(&got_isla, 2);
       Serial.print("Dato Recibido =");
-      Serial.println(got_time);
+      Serial.print((int)got_isla[0]);
+      Serial.println((int)got_isla[1]);
       delay(20); // Para dar tiempo al emisor
     }
 
     radio.stopListening(); // Dejamos d escuchar para poder hablar
 
-    radio.write(&got_time, sizeof(unsigned long));
+    radio.write(&got_isla, 2);
     Serial.println("Enviando Respuesta");
     radio.startListening(); // Volvemos a la escucha para recibir mas paquetes
+    //sendDataEthernet(got_time); // Se envía get
   }
 }
