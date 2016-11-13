@@ -11,7 +11,7 @@ module.exports = function createSocketServer(server) {
     console.log(`${client.id} has connected`)
 
     eventEmitter.on('parking-change', (parkingSlot) => {
-      client.emit('parking-change', { id: parkingSlot })
+      client.emit('parking-change', parkingSlot)
     })
 
   })

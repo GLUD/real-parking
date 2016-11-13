@@ -39,14 +39,14 @@ class ListaCobro extends React.Component {
 
     let self = this;
     eventEmitter.addListener('cobro', (data) => {
-
+      console.log(data)
       model.obtenerRegistro(data.id_db)
         .then(answ => {
           // console.log(answ)
 
           answ.id = data.id;
           answ.id_db = data.id_db
-          
+
           self.setState((prev) => {
             prev.list.push(answ)
 
