@@ -1,5 +1,6 @@
 /*
 http://www.prometec.net/nrf2401/
+https://www.arduino.cc/en/Tutorial/WebClientRepeating
  */
 /**
  * Dependencias módulo de Ethernet
@@ -24,7 +25,8 @@ http://www.prometec.net/nrf2401/
 byte mac[] = {0xDE, 0xBD, 0xBE, 0xEF, 0xFE, 0xED};
 // if you don't want to use DNS (and reduce your sketch size)
 // use the numeric IP instead of the name for the server:
-IPAddress server(10,145,20,62); // numeric IP for Google (no DNS)
+// IPAddress server(10, 145, 20, 62); // numeric IP for Google (no DNS)
+IPAddress server(10, 145, 20, 71);
 // char server[] = "192.168.1.238";    // name address for Google (using DNS)
 // IP Servicio Web Destino de Datos
 
@@ -47,7 +49,7 @@ const uint64_t pipes[2] = {0xF0F0F0F0E1LL, 0xF0F0F0F0D2LL};
 void setup() {
   configSerial();
   configEthernet();
-  //sendDataEthernet();
+  // sendDataEthernet();
   configRF();
 }
 
@@ -83,27 +85,40 @@ void configRF() {
   radio.openReadingPipe(1, pipes[0]);
 }
 
-void sendDataEthernet(int valor) {
-  // if you get a connection, report back via serial:
+void sendDataEthernet(int valor, int valor2) {
+  // close any connection before send a new request.
+  // This will free the socket on the WiFi shield
+  client.stop();
   if (client.connect(server, 8085)) {
     Serial.println("Connected");
     // Make a HTTP request:
     client.println("GET "
                    "/parking-change"
-                   "?id=" + String(valor) + "&st=0 HTTP/1.1");
-    client.println("Host: 10.145.20.62");
+                   "?id=" +
+                   String(valor) + "&st=" + String(valor2) + " HTTP/1.1");
+    // client.println("Host: 10.145.20.62");
+    // client.println("Host: 10.145.20.71");
     client.println("Connection: close");
     client.println();
   } else {
     // kf you didn't get a connection to the server:
     Serial.println("Connection failed");
   }
-  interactEthernet();
+  // interactEthernet();
+  // readEthernet();
+}
+
+void readEthernet() {
+  if (client.available()) {
+    char c = client.read();
+    Serial.print(c);
+  }
 }
 
 void loop() {
-  //interactEthernet();
+  // interactEthernet();
   interactRF();
+  // sendDataEthernet(10, 1);
 }
 
 void interactEthernet() {
@@ -119,7 +134,7 @@ void interactEthernet() {
     Serial.println();
     Serial.println("Disconnecting...");
     client.stop();
-    //sendDataEthernet();
+    // sendDataEthernet();
     // do nothing forevermore:
     // while(true);
   }
@@ -144,7 +159,8 @@ void interactRF() {
     //
     // radio.write(&got_isla, 2);
     // Serial.println("Enviando Respuesta");
-    // radio.startListening(); // Volvemos a la escucha para recibir mas paquetes
-    //sendDataEthernet(got_time); // Se envía get
+    // radio.startListening(); // Volvemos a la escucha para recibir mas
+    // paquetes
+    sendDataEthernet(got_isla[0], got_isla[1]); // Se envía get
   }
 }
