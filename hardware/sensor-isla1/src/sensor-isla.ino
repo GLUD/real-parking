@@ -15,10 +15,13 @@
 #include <SPI.h>
 /*Fin*/
 
+
 /**
  * Variables Módulo RF
  */
 RF24 radio(9, 10);
+const uint64_t pipes[2] = {0xF0F0F0F0E1LL,
+                           0xF0F0F0F0D2LL}; // LongLong = 64 bits.
 /*Fin*/
 
 /**
@@ -31,11 +34,9 @@ RF24 radio(9, 10);
 int limite = 212; // Distancia max entre el suelo y el vehiculo (cms)
 // 212 cms Toyota Hilux
 long duracion, distancia;
+volatile byte estadoIsla = 0;
 /*Fin*/
 
-const uint64_t pipes[2] = {0xF0F0F0F0E1LL,
-                           0xF0F0F0F0D2LL}; // LongLong = 64 bits.
-/*Fin*/
 
 void setup(void) {
   configSerial();
@@ -71,9 +72,9 @@ void loop(void) {
 
 void enviarDatoRF() {
   radio.stopListening(); // Paramos la escucha para poder hablar
-  char idIsla = 69;
-  char estado = 0;
-  char msg[2] = {idIsla, estado};
+  char idIsla = 1;
+  //char estado = 0;
+  char msg[2] = {idIsla, estadoIsla};
   // unsigned long time = millis();
   Serial.print("Enviando  ");
   Serial.print((int)msg[0]);
@@ -125,9 +126,11 @@ void medirDistancia() {
   if (distancia < limite) {
     Serial.println(String(distancia) + " cm.");
     digitalWrite(ledEstado, HIGH);
+    estadoIsla = 1;
   } else {
     Serial.println(String(distancia) + " cm.");
     digitalWrite(ledEstado, LOW);
+    estadoIsla = 0;
   }
   // delay (500) ;                  // Para limitar el número de mediciones
 }
