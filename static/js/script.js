@@ -213,30 +213,31 @@ const islas = {}
 const eventEmitter = new EventEmitter()
 
 socket.on('parking-change', function (data) {
-  let isla = data.id;
+  let isla = data
+  isla.id = 'isla.' + isla.id
 
-  if(islas[isla.id] && islas[isla.id].marked) {//Already has been marked
+  console.log(isla)
 
-    islas[isla.id].overlay.getSource().removeFeature(islas[isla.id].feature)
-    islas[isla.id].marked = false;
-
-    eventEmitter.emitEvent('cobro', [data.id, data.id_db])
-
-  } else if(islas[isla.id] && !islas[isla.id].marked) {
-
-    islas[isla.id].overlay.getSource().addFeature(islas[isla.id].feature)
-    islas[isla.id].marked = true;
-
-  } else {
+  if(!islas[isla.id]) {
     islas[isla.id] = {
       overlay: createOverlay(),
       feature: islaSource.getFeatureById(isla.id),
-      marked: true
+      marked: false
     }
 
-    if(islas[isla.id].feature)
-      islas[isla.id].overlay.getSource().addFeature(islas[isla.id].feature)
-    else
-      islas[isla.id] = undefined // Erase it for safety
+    if(!islas[isla.id].feature)
+      islas[isla.id] = undefined
+  }
+
+  if(isla.state == 0 && islas[isla.id].marked) {
+    islas[isla.id].overlay.getSource().removeFeature(islas[isla.id].feature)
+    islas[isla.id].marked = false;
+
+    eventEmitter.emitEvent('cobro', [isla])
+  }
+
+  if(isla.state == 1 && !islas[isla.id].marked) {
+    islas[isla.id].overlay.getSource().addFeature(islas[isla.id].feature)
+    islas[isla.id].marked = true;
   }
 })
