@@ -210,28 +210,33 @@ let highlightStyle = new ol.style.Style({
 
 const socket = io()
 const islas = {}
+const eventEmitter = new EventEmitter()
 
 socket.on('parking-change', function (data) {
-  if(islas[data.id] && islas[data.id].marked) {//Already has been marked
+  let isla = data.id;
 
-    islas[data.id].overlay.getSource().removeFeature(islas[data.id].feature)
-    islas[data.id].marked = false;
+  if(islas[isla.id] && islas[isla.id].marked) {//Already has been marked
 
-  } else if(islas[data.id] && !islas[data.id].marked) {
+    islas[isla.id].overlay.getSource().removeFeature(islas[isla.id].feature)
+    islas[isla.id].marked = false;
 
-    islas[data.id].overlay.getSource().addFeature(islas[data.id].feature)
-    islas[data.id].marked = true;
+    eventEmitter.emitEvent('cobro', [data.id, data.id_db])
+
+  } else if(islas[isla.id] && !islas[isla.id].marked) {
+
+    islas[isla.id].overlay.getSource().addFeature(islas[isla.id].feature)
+    islas[isla.id].marked = true;
 
   } else {
-    islas[data.id] = {
+    islas[isla.id] = {
       overlay: createOverlay(),
-      feature: islaSource.getFeatureById(data.id),
+      feature: islaSource.getFeatureById(isla.id),
       marked: true
     }
 
-    if(islas[data.id].feature)
-      islas[data.id].overlay.getSource().addFeature(islas[data.id].feature)
+    if(islas[isla.id].feature)
+      islas[isla.id].overlay.getSource().addFeature(islas[isla.id].feature)
     else
-      islas[data.id] = undefined // Erase it for safety
+      islas[isla.id] = undefined // Erase it for safety
   }
 })
