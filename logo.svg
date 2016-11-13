@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="29.330893mm"
+   height="29.457615mm"
+   viewBox="0 0 103.92836 104.37738"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="logo.svg">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow2Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Lstart"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4225"
+         style="fill:#6cd83d;fill-opacity:1;fill-rule:evenodd;stroke:#6cd83d;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(1.1,0,0,1.1,1.1,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4207"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
+         style="fill:#6cd83d;fill-opacity:1;fill-rule:evenodd;stroke:#6cd83d;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.8,0,0,0.8,10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.8"
+     inkscape:cx="12.532047"
+     inkscape:cy="35.150673"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1010"
+     inkscape:window-x="0"
+     inkscape:window-y="33"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-379.80518,-368.1152)">
+    <path
+       style="fill:#280a59;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 386.25709,368.6152 0,2.52538 9.59644,0 0,53.91689 -9.59644,0.12627 0,3.40927 30.55711,-0.25254 0,-2.77792 -9.72272,0 -0.37881,-54.42197 c 4.71405,0.12627 9.42809,-0.679 14.14214,0.37881 10.90465,5.56066 4.91508,27.26654 -4.54569,27.77919 7.40759,1.19827 20.08886,-0.14997 22.09709,-14.89975 0.88817,-5.57393 -3.86542,-14.98174 -13.63706,-15.78363 z"
+       id="path4193"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccccccccccc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#6cd83d;stroke-width:1.79999995;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 409.11179,394.87917 c 27.22465,37.77312 64.72483,80.48804 68.94291,21.71827 -11.67879,44.79769 -41.84399,4.48088 -68.94291,-21.71827 z"
+       id="path4195"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:18.94184303px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="385.08365"
+       y="460.23456"
+       id="text4199"
+       sodipodi:linespacing="125%"
+       transform="scale(0.98249346,1.0178185)"><tspan
+         sodipodi:role="line"
+         id="tspan4201"
+         x="385.08365"
+         y="460.23456"
+         style="fill:#280a59;fill-opacity:1">Real Parking</tspan></text>
+    <path
+       style="fill:#6cd83d;fill-opacity:1;fill-rule:evenodd;stroke:#6cd83d;stroke-width:0.40000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 474.375,417.63006 c 3.90831,-4.30851 7.50001,2.41072 7.50001,2.41072 0,0 -1.55853,-5.35989 -4.37501,-5.00001 -2.67948,0.34238 -3.125,2.58929 -3.125,2.58929 z"
+       id="path4537"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccsc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#6cd83d;stroke-width:2;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 414.55191,400.81479 c 27.17794,35.2715 58.36432,69.06374 62.96077,18.95042 -10.14455,38.52301 -36.9976,7.96052 -62.96077,-18.95042 z"
+       id="path4195-6"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccc" />
+  </g>
+</svg>
