@@ -4,6 +4,8 @@ const express = require('express')
 const http = require('http')
 const SocketServer = require('./app/SocketServer.js')
 const routes = require('./app/routes')
+const bodyParser = require('body-parser')
+
 
 const app = express()
 
@@ -16,6 +18,8 @@ app.all("/geoserver/*", function(req, res) {
 })
 
 app.use(express.static('static'))
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 app.get('/', function(req, res) {
   res.sendFile('static/index.js')
