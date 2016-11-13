@@ -133,17 +133,18 @@ void interactRF() {
       // Espera aqui hasta recibir algo
 
       done = radio.read(&got_isla, 2);
-      Serial.print("Dato Recibido =");
+      Serial.print("Dato Recibido = ");
       Serial.print((int)got_isla[0]);
+      Serial.print(",");
       Serial.println((int)got_isla[1]);
       delay(20); // Para dar tiempo al emisor
     }
 
-    radio.stopListening(); // Dejamos d escuchar para poder hablar
-
-    radio.write(&got_isla, 2);
-    Serial.println("Enviando Respuesta");
-    radio.startListening(); // Volvemos a la escucha para recibir mas paquetes
+    // radio.stopListening(); // Dejamos d escuchar para poder hablar
+    //
+    // radio.write(&got_isla, 2);
+    // Serial.println("Enviando Respuesta");
+    // radio.startListening(); // Volvemos a la escucha para recibir mas paquetes
     //sendDataEthernet(got_time); // Se envía get
   }
 }
