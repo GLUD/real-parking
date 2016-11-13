@@ -10,15 +10,13 @@ model.obtenerRegistro = function(id) {
 }
 
 model.actualizarRegistro = function(id) {
-  console.log(id)
   return fetch(HOST + '/registro/actualizar/', {
     method: 'POST',
     headers: new Headers({
     	'Content-Type': 'application/json',
     }),
     body: JSON.stringify({
-      id: id,
-      horaSalida: Date.now()
+      id: id
     })
   })
   .then(res => res.json())

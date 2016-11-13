@@ -16,7 +16,7 @@ class CobroItem extends React.Component {
   render() {
     return (
       <li className="coleccion-item">
-        <span className="titulo">{this.props.id.split('.').join(' ')}</span>
+        <span className="titulo">{this.props.name.split('.').join(' ')}</span>
         <div className="content">
           <div className="info">
             {this.props.children}
@@ -36,28 +36,6 @@ class ListaCobro extends React.Component {
     this.state = {
       list: []
     }
-    // this.state = {
-    //   list: [
-    //     {
-    //       id: 'isla.1',
-    //       horaIngreso: '2:00:00',
-    //       horaSalida: '4:00:00',
-    //       monto: '4.000'
-    //     },
-    //     {
-    //       id: 'isla.2',
-    //       horaIngreso: '2:00:00',
-    //       horaSalida: '4:00:00',
-    //       monto: '4.000'
-    //     },
-    //     {
-    //       id: 'isla.3',
-    //       horaIngreso: '2:00:00',
-    //       horaSalida: '4:00:00',
-    //       monto: '4.000'
-    //     }
-    //   ]
-    // }
 
     let self = this;
     eventEmitter.addListener('cobro', (data) => {
@@ -67,6 +45,8 @@ class ListaCobro extends React.Component {
           // console.log(answ)
 
           answ.id = data.id;
+          answ.id_db = data.id_db
+          
           self.setState((prev) => {
             prev.list.push(answ)
 
@@ -79,11 +59,13 @@ class ListaCobro extends React.Component {
         })
         .then(answ => {
           self.setState(prev => {
-            let lastElement = prev.list.pop()
-            lastElement.horaSalida = answ.horaSalida,
-            lastElement.monto = '5.000'
 
-            prev.list.push(lastElement)
+            answ.id_db = answ.id
+            answ.id = data.id
+
+            prev.list.pop()
+
+            prev.list.push(answ)
 
             return {
               list: prev.list
@@ -100,9 +82,9 @@ class ListaCobro extends React.Component {
 
     let list = this.state.list.map(element => {
       return (
-        <CobroItem key={element.id} id={element.id}>
-          <Hora clase="ingreso">{element.horaIngreso}</Hora>
-          <Hora clase="salida">{element.horaSalida}</Hora>
+        <CobroItem key={element.id_db} name={element.id}>
+          <Hora clase="ingreso">{element.timeBegin}</Hora>
+          <Hora clase="salida">{element.timeEnd}</Hora>
           <span className="monto">{element.monto}</span>
         </CobroItem>
       )
