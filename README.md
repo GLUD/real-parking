@@ -6,29 +6,29 @@ Es un sistema escalable de parqueaderos. Busca ver toda la ciudad como un gran p
 
 ### INFORMACIÓN DE CONTACTO DESARROLLADORES ###
 
-* Desarrollador: Jorge Ulises Useche Cuellar
-Ingeniero Electónico de la Udistrital FJC
-Movil: 3114813719
-Twitter: @juusechec
-LinkedIn: https://co.linkedin.com/in/juusechec
+* Desarrollador: Jorge Ulises Useche Cuellar   
+Ingeniero Electónico de la Udistrital FJC  
+Movil: 3114813719  
+Twitter: @juusechec   
+LinkedIn: https://co.linkedin.com/in/juusechec  
 
-* Desarrollador: Diego Javier Mena Amado
-Ingeniero Electrónico de la UDistrital FJC
-Movil: 3133067541
-Twitter: @DiegoJavierMena 
+* Desarrollador: Diego Javier Mena Amado  
+Ingeniero Electrónico de la UDistrital FJC  
+Movil: 3133067541  
+Twitter: @DiegoJavierMena  
 LinkedIn: https://www.linkedin.com/in/diego-javier-mena-amado-3357a873/en
 
-* Desarrollador: Andrés Angarita
-Ingeniero de Sistemas de la UDistrital FJC
-Movil: 
-Twitter: @ 
-LinkedIn: 
+* Desarrollador: Andrés Angarita  
+Ingeniero de Sistemas de la UDistrital FJC  
+Movil:   
+Twitter: @   
+LinkedIn:   
 
-* Desarrollador: David Castelblanco
-Ingeniero de Sistemas de la UDistrital FJC
-Movil: 
-Twitter: @ 
-LinkedIn: 
+* Desarrollador: David Castelblanco  
+Ingeniero de Sistemas de la UDistrital FJC  
+Movil:   
+Twitter: @   
+LinkedIn:  
 
 ### Material de Presentación ###
 
